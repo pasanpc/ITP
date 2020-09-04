@@ -69,6 +69,8 @@ public class AddCustomers extends javax.swing.JFrame {
         jLabelFName = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtCusDiscount = new javax.swing.JTextField();
+        jLabelDiscount = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -167,6 +169,21 @@ public class AddCustomers extends javax.swing.JFrame {
                 txtCusDiscountActionPerformed(evt);
             }
         });
+        txtCusDiscount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCusDiscountKeyReleased(evt);
+            }
+        });
+
+        jLabelDiscount.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
+        jLabelDiscount.setForeground(new java.awt.Color(255, 0, 0));
+
+        jButton3.setText("Close");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -196,7 +213,9 @@ public class AddCustomers extends javax.swing.JFrame {
                                     .addComponent(txtCusAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtCusDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txtCusNIC, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -210,11 +229,17 @@ public class AddCustomers extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabelFName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(0, 99, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addGap(35, 35, 35))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addContainerGap()
+                .addComponent(jButton3)
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelFName, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -252,9 +277,11 @@ public class AddCustomers extends javax.swing.JFrame {
                                 .addComponent(txtCusEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel5)))))
                 .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtCusDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(txtCusDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27))
         );
 
@@ -349,11 +376,10 @@ public class AddCustomers extends javax.swing.JFrame {
             
             txtCusFName.requestFocus();
             
+            this.setVisible(false);
             
-            
-            Customer cus = new Customer();
-            cus.setVisible(true);
-            
+            Customer c = new Customer();
+            c.setVisible(true);
             
         } catch (SQLException ex) {
             Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
@@ -440,6 +466,31 @@ public class AddCustomers extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCusDiscountActionPerformed
 
+    private void txtCusDiscountKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCusDiscountKeyReleased
+        // TODO add your handling code here:
+        String PATTERN = "^[0-9]{1,2}[.][0-9]{1,5}$";
+        Pattern patt = Pattern.compile(PATTERN);
+        Matcher match = patt.matcher(txtCusDiscount.getText());
+        if(!match.matches()){
+            jLabelDiscount.setText("Invalid Loayality Discount!");
+            jButton2.setEnabled(false);
+            jButton1.setEnabled(false);
+        }
+        else{
+            jLabelDiscount.setText(null);
+            jButton2.setEnabled(true);
+            jButton1.setEnabled(true);
+        }
+
+    }//GEN-LAST:event_txtCusDiscountKeyReleased
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        Customer c = new Customer();
+        c.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -478,6 +529,7 @@ public class AddCustomers extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -486,6 +538,7 @@ public class AddCustomers extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelDiscount;
     private javax.swing.JLabel jLabelEmail;
     private javax.swing.JLabel jLabelFName;
     private javax.swing.JLabel jLabelLName;
